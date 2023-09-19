@@ -377,6 +377,10 @@ func main() {
 			"YGG_SOCKET_ADDR=unix:" + c.String("socket-addr"),
 			"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
 		}
+		foremanYggWorkerDir, foremanYggWorkerDirP := os.LookupEnv("FOREMAN_YGG_WORKER_WORKDIR")
+		if foremanYggWorkerDirP {
+			env = append(env, "FOREMAN_YGG_WORKER_WORKDIR="+foremanYggWorkerDir)
+		}
 		for _, info := range fileInfos {
 			if strings.HasSuffix(info.Name(), "worker") {
 				if ExcludeWorkers[info.Name()] {
